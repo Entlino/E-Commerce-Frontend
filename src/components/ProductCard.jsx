@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom"; // Link wird hier benötigt
-
+import { useCart } from "../context/CartContext";
 // Die Komponente erhält das 'product'-Objekt als "Prop" (Eigenschaft)
 function ProductCard({ product }) {
+  const { addToCart } = useCart();
   return (
     // Die äußere Kachel: Etwas anderer Schatten, abgerundete Ecken, Flexbox-Layout (Spalte)
     <div className="border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300 ease-in-out bg-white overflow-hidden flex flex-col">
@@ -52,8 +53,7 @@ function ProductCard({ product }) {
         <button
           type="button"
           className="mt-auto w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-200"
-          // Die Funktion kommt erst viel später hinzu!
-          // onClick={() => alert('Warenkorb-Funktion fehlt noch!')}
+          onClick={() => addToCart(product)} // <-- NEU: Ruft addToCart mit dem aktuellen Produkt auf
         >
           In den Warenkorb
         </button>

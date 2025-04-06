@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // <--- NEU: Link importieren
-import ProductCard from "./components/ProductCard"; // <-- NEU
+import ProductCard from "./components/ProductCard";
+import { useCart } from "./context/CartContext"; // <-- NEU oder schon da?
 
 function App() {
+  const { cartItems } = useCart();
   // --- State-Variablen ---
   // Hier speichern wir die Produktliste, die von der API kommt. Startet als leere Liste.
   const [products, setProducts] = useState([]);
@@ -67,29 +69,40 @@ function App() {
   }
 
   // 3. Wenn alles gut ging und keine Fehler/Laden mehr: Zeige die Produkte!
+  // ... Beginn des return Statements ...
   return (
-    <div className="p-6 max-w-2xl mx-auto">
+    <div className="p-6 max-w-4xl mx-auto">
       {" "}
-      {/* Tailwind: Padding, max. Breite, zentriert */}
+      {/* Evtl. max-w- anpassen */}
+      {/* NEUE Warenkorb-Anzeige */}
+      <div className="text-right mb-4 font-semibold text-gray-700">
+        Warenkorb: {cartItems.length} Artikel
+      </div>
+      {/* Ende NEUE Warenkorb-Anzeige */}
       <h1 className="text-3xl font-bold text-center text-blue-700 mb-6">
         Unser Shop
-      </h1>{" "}
-      {/* Tailwind */}
-      {/* Das 'ul' wird zum 'div' mit Grid-Klassen */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {" "}
-        {/* Grid-Layout */}
-        {products.length > 0 ? (
-          products.map((product) => (
-            // Das 'li' wird auch zum 'div' - unsere Produkt-Kachel
-            <ProductCard key={product.id} product={product} />
-          ))
-        ) : (
-          <p className="col-span-full text-center text-gray-500">
-            Keine Produkte gefunden.
-          </p> // Nimmt volle Breite ein, falls Grid leer
-        )}
-      </div>
+      </h1>
+      {/* Lade- / Fehleranzeige für Produkte bleibt wie gehabt */}
+      {loading && <div className="p-4 text-center">Lade Produkte... ⏳</div>}
+      {error && (
+        <div className="p-4 text-center text-red-600">
+          Fehler beim Laden: {error} 😭
+        </div>
+      )}
+      {/* Produkt-Grid bleibt wie gehabt */}
+      {!loading && !error && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {products.length > 0 ? (
+            products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))
+          ) : (
+            <p className="col-span-full text-center text-gray-500">
+              Keine Produkte gefunden.
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
