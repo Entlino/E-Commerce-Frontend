@@ -48,13 +48,41 @@ export function CartProvider({ children }) {
     // console.log("Zum Warenkorb hinzugefügt:", productToAdd.name); // Optional: Debugging
   };
 
+  const removeFromCart = (productId) => {
+    setCartItems((prevItems) => {
+      // Erstellt ein neues Array, das alle Items enthält, AUSSER dem mit der productId
+      return prevItems.filter((item) => item.product.id !== productId);
+    });
+    console.log("Aus Warenkorb entfernt:", productId); // Debugging
+  };
+
+  const updateQuantity = (productId, newQuantity) => {
+    // Stelle sicher, dass die Menge mindestens 1 ist, ansonsten entfernen
+    if (newQuantity < 1) {
+      removeFromCart(productId);
+      return; // Frühzeitiger Ausstieg
+    }
+
+    setCartItems((prevItems) => {
+      // Geht alle Items durch und aktualisiert nur das mit der productId
+      return prevItems.map(
+        (item) =>
+          item.product.id === productId
+            ? { ...item, quantity: newQuantity } // Aktualisiere Menge
+            : item // Behalte andere Items unverändert
+      );
+    });
+    console.log("Menge aktualisiert:", productId, newQuantity); // Debugging
+  };
+
   // Später hier hinzufügen: removeFromCart, updateQuantity etc.
 
   // Wert, der vom Provider bereitgestellt wird (bleibt gleich)
   const value = {
     cartItems,
     addToCart,
-    // Später: removeFromCart, updateQuantity ...
+    removeFromCart, // <-- NEU
+    updateQuantity, // <-- NEU
   };
 
   // Der Provider gibt den 'value' an alle seine 'children' weiter (bleibt gleich)
