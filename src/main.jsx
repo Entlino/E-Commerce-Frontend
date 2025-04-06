@@ -1,24 +1,29 @@
+// *** BESSERER ANSATZ für main.jsx ***
 import React from "react";
 import ReactDOM from "react-dom/client";
-// React Router importieren
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "./App.jsx";
+import { CartProvider } from "./context/CartContext";
+
+import App from "./App.jsx"; // Unser Layout mit Header und Outlet
+import ProductListPage from "./pages/ProductListPage.jsx";
 import ProductDetailPage from "./pages/ProductDetailPage.jsx";
-// ... andere imports
-import { CartProvider } from "./context/CartContext"; // <-- NEU
+import CartPage from "./pages/CartPage.jsx";
 import "./index.css";
-// Platzhalter für die zukünftige Detailseiten-Komponente
-// Wir erstellen diese Datei erst im nächsten Schritt!
-// import ProductDetailPage from './pages/ProductDetailPage.jsx';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* CartProvider umschliesst jetzt alles */}
     <CartProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/products/:productId" element={<ProductDetailPage />} />
+          {/* Die App-Komponente ist jetzt die Eltern-Route für alle anderen */}
+          <Route path="/" element={<App />}>
+            {/* Index Route: Was wird angezeigt, wenn der Pfad genau "/" ist? */}
+            <Route index element={<ProductListPage />} />
+            {/* Andere Kind-Routen */}
+            <Route path="products/:productId" element={<ProductDetailPage />} />
+            <Route path="cart" element={<CartPage />} />
+            {/* Hier könnten später 404-Routen etc. hin: <Route path="*" element={<NotFoundPage />} /> */}
+          </Route>
         </Routes>
       </BrowserRouter>
     </CartProvider>
