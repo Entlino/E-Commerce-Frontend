@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // <--- NEU: Link importieren
+import ProductCard from "./components/ProductCard"; // <-- NEU
 
 function App() {
   // --- State-Variablen ---
@@ -73,30 +75,21 @@ function App() {
         Unser Shop
       </h1>{" "}
       {/* Tailwind */}
-      <ul className="space-y-3">
+      {/* Das 'ul' wird zum 'div' mit Grid-Klassen */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {" "}
-        {/* Tailwind: Vertikaler Abstand zwischen Listenelementen */}
+        {/* Grid-Layout */}
         {products.length > 0 ? (
-          // Wenn Produkte vorhanden sind, liste sie auf
           products.map((product) => (
-            <li key={product.id} className="p-3 bg-gray-100 rounded shadow">
-              {" "}
-              {/* Wichtig: key für jedes Element! Tailwind */}
-              <strong className="text-lg font-semibold">
-                {product.name}
-              </strong>{" "}
-              - {product.price} €
-              <p className="text-sm text-gray-600 mt-1">
-                {product.description} (Kategorie: {product.category || "N/A"})
-              </p>{" "}
-              {/* Zeige Kategorie oder N/A */}
-            </li>
+            // Das 'li' wird auch zum 'div' - unsere Produkt-Kachel
+            <ProductCard key={product.id} product={product} />
           ))
         ) : (
-          // Wenn keine Produkte vorhanden sind (aber kein Fehler/Laden)
-          <p className="text-center text-gray-500">Keine Produkte gefunden.</p>
+          <p className="col-span-full text-center text-gray-500">
+            Keine Produkte gefunden.
+          </p> // Nimmt volle Breite ein, falls Grid leer
         )}
-      </ul>
+      </div>
     </div>
   );
 }
