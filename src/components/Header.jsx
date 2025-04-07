@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react"; // useState, useEffect hinzufügen
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom"; // useNavigate hinzufügen
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 
 function Header() {
   const { cartItems } = useCart();
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const { isAuthenticated, logoutAction } = useAuth();
+  const { isAuthenticated, logoutAction, user } = useAuth();
   // NEUE STATES für Kategorien
   const [categories, setCategories] = useState([]);
   const [loadingCategories, setLoadingCategories] = useState(true);
@@ -75,25 +75,49 @@ function Header() {
           </NavLink>
 
           {isAuthenticated ? (
-            // Wenn eingeloggt: Zeige Logout Button
-            <button
-              onClick={logoutAction} // Ruft die Logout-Funktion aus dem Context auf
-              className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Logout
-            </button>
+            // ---- WENN EINGELOGGT ----
+            <>
+              {/* Hier könnte später der Username hin: <span className="text-sm font-medium text-gray-700 mr-4">Hallo, User!</span> */}
+              {user && (
+                <span className="text-sm font-medium text-gray-700 mr-4">
+                  Hallo, {user.username}!
+                </span>
+              )}
+              <button
+                onClick={() => {
+                  logoutAction();
+                  navigate("/login");
+                }}
+                // Hinzugefügt: bg-transparent, sicherstellen, dass Rest wie NavLink ist
+                className="bg-transparent text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Logout
+              </button>
+            </>
           ) : (
-            // Wenn nicht eingeloggt: Zeige Login Link
-            <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                `text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium ${
-                  isActive ? "text-blue-600 bg-blue-50" : ""
-                }`
-              }
-            >
-              Login
-            </NavLink>
+            // ---- WENN AUSGELOGGT ----
+            <>
+              <NavLink
+                to="/register"
+                className={({ isActive }) =>
+                  `text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium ${
+                    isActive ? "text-blue-600 bg-blue-50" : ""
+                  }`
+                }
+              >
+                Registrieren
+              </NavLink>
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  `text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium ${
+                    isActive ? "text-blue-600 bg-blue-50" : ""
+                  }`
+                }
+              >
+                Login
+              </NavLink>
+            </>
           )}
         </div>
       </nav>
