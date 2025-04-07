@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard"; // Pfad prüfen!
 // KEIN useCart hier nötig, ausser du brauchst es spezifisch für die Liste
 
@@ -8,30 +8,45 @@ function ProductListPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [searchParams] = useSearchParams();
+  const categoryFilter = searchParams.get("category");
+
   useEffect(() => {
-    console.log("ProductListPage: useEffect wird ausgeführt."); // <-- LOG 1
+    console.log(
+      "ProductListPage: useEffect wird ausgeführt. Filter:",
+      categoryFilter
+    ); // Angepasster Log
 
     async function fetchProducts() {
       setLoading(true);
       setError(null);
+      // Basis-URL für die API
+      let apiUrl = "http://127.0.0.1:8000/api/products/";
+
+      // Wenn ein categoryFilter vorhanden ist, füge ihn zur URL hinzu
+      if (categoryFilter) {
+        apiUrl += `?category=${categoryFilter}`;
+      }
+      console.log("ProductListPage: Fetching from:", apiUrl); // Zeigt die finale URL
+
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/products/");
-        console.log("ProductListPage: Fetch Response Status:", response.status); // <-- LOG 2
+        const response = await fetch(apiUrl); // Nutze die (ggf. geänderte) URL
+        // ... Rest der Fetch-Logik (response.ok, data, setProducts etc.) bleibt gleich ...
         if (!response.ok) {
           throw new Error(`HTTP Fehler! Status: ${response.status}`);
         }
         const data = await response.json();
-        console.log("ProductListPage: Empfangene Daten:", data); // <-- LOG 3
         setProducts(data);
       } catch (e) {
-        console.error("ProductListPage: Fehler beim Fetch:", e); // <-- LOG 4
+        console.error("ProductListPage: Fehler beim Fetch:", e);
         setError(e.message);
       } finally {
         setLoading(false);
       }
     }
     fetchProducts();
-  }, []);
+    // NEUE Abhängigkeit: useEffect erneut ausführen, wenn sich der Filter ändert!
+  }, [categoryFilter]);
 
   // ... Loading / Error return bleibt gleich ...
 
