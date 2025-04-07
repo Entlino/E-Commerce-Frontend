@@ -5,7 +5,7 @@ import { useCart } from "../context/CartContext";
 
 function CartPage() {
   // Hole die aktuellen Warenkorb-Artikel und (später vielleicht nützlich) Funktionen
-  const { cartItems, removeFromCart, updateQuantity } = useCart();
+  const { cartItems, removeFromCart, updateQuantity, clearCart } = useCart();
   // Berechnung der Gesamtsumme (optional für jetzt, aber nützlich)
   const total = cartItems.reduce((sum, item) => {
     // Stelle sicher, dass Preis und Menge Zahlen sind
@@ -112,7 +112,17 @@ function CartPage() {
               </span>
             </div>
             <div className="flex justify-end mt-4">
-              <button className="bg-green-600 text-white py-2 px-6 rounded hover:bg-green-700 transition-colors">
+              <button
+                onClick={clearCart}
+                className="order-2 sm:order-1 px-4 py-2 bg-red-500 text-white text-sm font-medium rounded hover:bg-red-600 transition-colors w-full sm:w-auto"
+              >
+                Warenkorb leeren
+              </button>
+
+              {/* Zur Kasse Button (Margin hinzufügen) */}
+              <button className="order-1 sm:order-2 bg-green-600 text-white py-2 px-6 rounded hover:bg-green-700 transition-colors w-full sm:w-auto ml-3">
+                {" "}
+                {/* <-- HIER ml-3 HINZUGEFÜGT */}
                 Zur Kasse (Demo)
               </button>
             </div>
