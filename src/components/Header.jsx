@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react"; // useState, useEffect hinzufügen
 import { Link, NavLink } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 
 function Header() {
   const { cartItems } = useCart();
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-
+  const { isAuthenticated, logoutAction } = useAuth();
   // NEUE STATES für Kategorien
   const [categories, setCategories] = useState([]);
   const [loadingCategories, setLoadingCategories] = useState(true);
@@ -72,7 +73,28 @@ function Header() {
               </span>
             )}
           </NavLink>
-          {/* Hier könnten später Login/Logout Links hin */}
+
+          {isAuthenticated ? (
+            // Wenn eingeloggt: Zeige Logout Button
+            <button
+              onClick={logoutAction} // Ruft die Logout-Funktion aus dem Context auf
+              className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+            >
+              Logout
+            </button>
+          ) : (
+            // Wenn nicht eingeloggt: Zeige Login Link
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                `text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium ${
+                  isActive ? "text-blue-600 bg-blue-50" : ""
+                }`
+              }
+            >
+              Login
+            </NavLink>
+          )}
         </div>
       </nav>
       {/* ===== ENDE TEIL 1 ===== */}
