@@ -1,6 +1,6 @@
 # Mein Shop Projekt - Frontend
 
-Dies ist das Frontend für das 'Mein Shop' E-Commerce Projekt (Stand: 6. April 2025). Es wurde mit React (unter Verwendung von Vite) und Tailwind CSS v3 erstellt. Das Frontend kommuniziert mit der zugehörigen Backend-API, um Produktdaten anzuzeigen und zukünftige Shop-Funktionen zu ermöglichen.
+Dies ist das Frontend für das 'Mein Shop' E-Commerce Projekt (Stand: 16. April 2025). Es wurde mit React (unter Verwendung von Vite) und Tailwind CSS v3 erstellt. Das Frontend kommuniziert mit der zugehörigen Backend-API, um Produktdaten anzuzeigen und zukünftige Shop-Funktionen zu ermöglichen.
 
 **➡️ Backend Repository:** [https://github.com/Entlino/E-Commerce-Backend](https://github.com/Entlino/E-Commerce-Backend)
 
@@ -71,5 +71,6 @@ npm test
 
 ⚙️ Konfiguration
 Die URL für die Backend-API (http://127.0.0.1:8000/api/products/) ist derzeit fest im Code (src/App.jsx) hinterlegt. Für mehr Flexibilität könnte dies später in eine Umgebungsvariable (z.B. über eine .env-Datei mit VITE_API_URL=...) ausgelagert werden.
+
 📜 Lizenz
 Dieses Projekt steht unter der MIT Lizenz.
