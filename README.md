@@ -2,16 +2,16 @@
 
 Dies ist das Frontend für das 'Mein Shop' E-Commerce Projekt (Stand: 16. April 2025). Es wurde mit React (unter Verwendung von Vite) und Tailwind CSS v3 erstellt. Das Frontend kommuniziert mit der zugehörigen Backend-API, um Produktdaten anzuzeigen und zukünftige Shop-Funktionen zu ermöglichen.
 
-**➡️ Backend Repository:** [https://github.com/Entlino/E-Commerce-Backend](https://github.com/Entlino/E-Commerce-Backend)
+** Backend Repository:** [https://github.com/Entlino/E-Commerce-Backend](https://github.com/Entlino/E-Commerce-Backend)
 
-## ✨ Features (Aktueller Stand)
+## Features (Aktueller Stand)
 
 - Zeigt eine **Liste aller Produkte** an, die von der Backend-API (`/api/products/`) abgerufen werden.
 - Beinhaltet eine einfache **Lade- und Fehleranzeige** während des Datenabrufs.
 - Basiert auf **React** mit **Vite** für eine schnelle Entwicklungsumgebung.
 - Nutzt **Tailwind CSS v3** für das Styling.
 
-## 🛠️ Technologie-Stack
+## Technologie-Stack
 
 - **Framework/Library:** React
 - **Build-Tool:** Vite
@@ -19,7 +19,7 @@ Dies ist das Frontend für das 'Mein Shop' E-Commerce Projekt (Stand: 16. April 
 - **Sprache:** JavaScript (JSX)
 - **Paketmanager:** npm
 
-## 📋 Voraussetzungen
+## Voraussetzungen
 
 Bevor du beginnst, stelle sicher, dass Folgendes auf deinem System installiert ist:
 
@@ -27,7 +27,7 @@ Bevor du beginnst, stelle sicher, dass Folgendes auf deinem System installiert i
 - npm (kommt mit Node.js)
 - Git ([Download](https://git-scm.com/))
 
-## ⚙️ Installation & Setup (Lokal)
+## Installation & Setup
 
 Folge diesen Schritten, um das Frontend lokal aufzusetzen:
 
@@ -46,7 +46,7 @@ Folge diesen Schritten, um das Frontend lokal aufzusetzen:
     ```
     _(Dies installiert React, Tailwind und alle anderen in `package.json` definierten Pakete)._
 
-## ▶️ Entwicklungs-Server starten
+## Entwicklungs-Server starten
 
 **WICHTIG:** Das Frontend benötigt das laufende Backend, um Produktdaten abrufen zu können! Stelle sicher, dass der **Backend-Server zuerst gestartet** wurde (siehe README des Backend-Repos) und unter `http://127.0.0.1:8000/` läuft.
 
@@ -58,7 +58,7 @@ Folge diesen Schritten, um das Frontend lokal aufzusetzen:
 
 Du solltest nun die Anwendung sehen, die die Produktliste vom Backend anzeigt.
 
-## 🧪 Tests ausführen (Beispiel)
+## Tests ausführen 
 
 Aktuell sind noch keine automatisierten Tests implementiert. Wenn Tests hinzugefügt werden (z.B. mit Jest und React Testing Library), können sie typischerweise so ausgeführt werden:
 
@@ -69,8 +69,8 @@ npm test
 
 (Das Hinzufügen von Tests wird dringend empfohlen!)
 
-⚙️ Konfiguration
+Konfiguration
 Die URL für die Backend-API (http://127.0.0.1:8000/api/products/) ist derzeit fest im Code (src/App.jsx) hinterlegt. Für mehr Flexibilität könnte dies später in eine Umgebungsvariable (z.B. über eine .env-Datei mit VITE_API_URL=...) ausgelagert werden.
 
-📜 Lizenz
+Lizenz
 Dieses Projekt steht unter der MIT Lizenz.
