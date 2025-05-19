@@ -71,6 +71,3 @@ npm test
 
 ## Konfiguration
 Die URL für die Backend-API (http://127.0.0.1:8000/api/products/) ist derzeit fest im Code (src/App.jsx) hinterlegt. Für mehr Flexibilität könnte dies später in eine Umgebungsvariable (z.B. über eine .env-Datei mit VITE_API_URL=...) ausgelagert werden.
-
-## Lizenz
-Dieses Projekt steht unter der MIT Lizenz.
